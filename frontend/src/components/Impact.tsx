@@ -39,9 +39,9 @@ export default function Impact() {
   ];
 
   return (
-    <section id="impact" className="py-24 px-12" ref={sectionRef}>
+    <section id="impact" className="py-16 md:py-24 px-4 md:px-8 lg:px-12" ref={sectionRef}>
       <div className="container mx-auto">
-        <div style={{ textAlign: "center", marginBottom: "56px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px md:56px" }}>
           <div className="section-eyebrow" style={{ display: "inline-flex" }}>
             📈 Measured Impact
           </div>
@@ -52,14 +52,7 @@ export default function Impact() {
           </h2>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "20px",
-            marginBottom: "64px",
-          }}
-        >
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 mb-8 md:mb-16">
           {impactCards.map((card, i) => (
             <div
               key={i}
@@ -67,7 +60,7 @@ export default function Impact() {
                 background: "var(--card)",
                 border: "1px solid var(--border)",
                 borderRadius: "16px",
-                padding: "32px 24px",
+                padding: "24px 16px",
                 textAlign: "center",
                 transition: "all 0.3s",
                 position: "relative",
@@ -91,62 +84,34 @@ export default function Impact() {
                           : "linear-gradient(to right, var(--danger), #FF1744)",
                 }}
               />
-              <div style={{ fontSize: "32px", marginBottom: "16px" }}>{card.icon}</div>
+              <div style={{ fontSize: "28px", marginBottom: "12px" }}>{card.icon}</div>
               <AnimatedNumber value={card.num} suffix={card.suffix} color={card.color} hasAnimated={hasAnimated} />
-              <div
-                style={{
-                  fontSize: "15px",
-                  color: "var(--muted)",
-                  lineHeight: 1.4,
-                  marginTop: "8px",
-                }}
-              >
+              <div className="text-xs md:text-sm" style={{ color: "var(--muted)", lineHeight: 1.4, marginTop: "8px" }}>
                 {card.label}
               </div>
             </div>
           ))}
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "16px",
-            marginTop: "20px",
-          }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {statsRow.map((stat, i) => (
             <div
               key={i}
+              className="flex items-center gap-4"
               style={{
                 background: "var(--card)",
                 border: "1px solid var(--border)",
                 borderRadius: "16px",
-                padding: "20px 24px",
-                textAlign: "left",
-                display: "flex",
-                gap: "16px",
-                alignItems: "center",
+                padding: "16px 20px",
               }}
             >
-              <div style={{ fontSize: "28px" }}>{stat.icon}</div>
+              <div style={{ fontSize: "24px" }}>{stat.icon}</div>
               <div>
-                <div
-                  style={{
-                    fontSize: "22px",
-                    fontWeight: 800,
-                    color: stat.color,
-                  }}
-                >
+                <div style={{ fontSize: "20px", fontWeight: 800, color: stat.color }}>
                   {stat.num}
                   {stat.suffix && <span>{stat.suffix}</span>}
                 </div>
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "var(--muted)",
-                  }}
-                >
+                <div style={{ fontSize: "13px", color: "var(--muted)" }}>
                   {stat.label}
                 </div>
               </div>
@@ -190,14 +155,7 @@ function AnimatedNumber({
   }, [hasAnimated, value]);
 
   return (
-    <div
-      style={{
-        fontSize: "48px",
-        fontWeight: 900,
-        lineHeight: 1,
-        color,
-      }}
-    >
+    <div style={{ fontSize: "36px md:48px", fontWeight: 900, lineHeight: 1, color }}>
       {display.toLocaleString()}
       {suffix}
     </div>

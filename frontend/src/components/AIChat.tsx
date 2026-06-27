@@ -32,19 +32,36 @@ export default function AIChat() {
     },
   ]);
 
+  const contextSteps = [
+    {
+      num: 1,
+      title: "Farmer registers crop & location",
+      desc: "One-time setup via WhatsApp, USSD, or the app. Name, crop type, county, planting date.",
+    },
+    {
+      num: 2,
+      title: "HUSIKA alert fires",
+      desc: "A drought or flood warning triggers the AgroSense pipeline automatically.",
+    },
+    {
+      num: 3,
+      title: "AI generates personalized advice",
+      desc: "RAG retrieves agronomic guidance. GPT-4o generates 3 crop-specific actions in 8 seconds.",
+    },
+    {
+      num: 4,
+      title: "Farmer receives it on their phone",
+      desc: "WhatsApp for smartphones. USSD or SMS for feature phones. No internet needed.",
+    },
+  ];
+
   return (
-    <section id="ai-chat" className="py-24 px-12" style={{ background: "var(--bg2)" }}>
+    <section id="ai-chat" className="py-16 md:py-24 px-4 md:px-8 lg:px-12" style={{ background: "var(--bg2)" }}>
       <div className="container mx-auto">
         <div
-          className="chat-layout"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "64px",
-            alignItems: "center",
-          }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
         >
-          <div>
+          <div className="order-2 lg:order-1">
             <div className="section-eyebrow">🤖 AI Farm Advisor</div>
             <h2 className="section-title">
               Ask anything.
@@ -57,37 +74,9 @@ export default function AIChat() {
               language.
             </p>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginTop: "16px" }}>
-              {[
-                {
-                  num: 1,
-                  title: "Farmer registers crop & location",
-                  desc: "One-time setup via WhatsApp, USSD, or the app. Name, crop type, county, planting date.",
-                },
-                {
-                  num: 2,
-                  title: "HUSIKA alert fires",
-                  desc: "A drought or flood warning triggers the AgroSense pipeline automatically.",
-                },
-                {
-                  num: 3,
-                  title: "AI generates personalized advice",
-                  desc: "RAG retrieves agronomic guidance. GPT-4o generates 3 crop-specific actions in 8 seconds.",
-                },
-                {
-                  num: 4,
-                  title: "Farmer receives it on their phone",
-                  desc: "WhatsApp for smartphones. USSD or SMS for feature phones. No internet needed.",
-                },
-              ].map((item) => (
-                <div
-                  key={item.num}
-                  style={{
-                    display: "flex",
-                    gap: "16px",
-                    alignItems: "flex-start",
-                  }}
-                >
+            <div className="flex flex-col gap-4 mt-4">
+              {contextSteps.map((item) => (
+                <div key={item.num} className="flex gap-4 items-start">
                   <div
                     style={{
                       width: "28px",
@@ -108,21 +97,10 @@ export default function AIChat() {
                     {item.num}
                   </div>
                   <div>
-                    <div
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 600,
-                        marginBottom: "4px",
-                      }}
-                    >
+                    <div className="font-semibold mb-1" style={{ fontSize: "15px" }}>
                       {item.title}
                     </div>
-                    <div
-                      style={{
-                        fontSize: "14px",
-                        color: "var(--muted)",
-                      }}
-                    >
+                    <div style={{ fontSize: "14px", color: "var(--muted)" }}>
                       {item.desc}
                     </div>
                   </div>
@@ -131,209 +109,168 @@ export default function AIChat() {
             </div>
           </div>
 
-          <div
-            className="chat-window"
-            style={{
-              background: "var(--card)",
-              border: "1px solid var(--border2)",
-              borderRadius: "20px",
-              overflow: "hidden",
-              boxShadow: "var(--glow)",
-            }}
-          >
+          <div className="order-1 lg:order-2">
             <div
-              className="chat-header"
               style={{
-                padding: "16px 20px",
-                background: "rgba(0,0,0,0.2)",
-                borderBottom: "1px solid var(--border)",
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
+                background: "var(--card)",
+                border: "1px solid var(--border2)",
+                borderRadius: "20px",
+                overflow: "hidden",
+                boxShadow: "var(--glow)",
               }}
             >
               <div
                 style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "10px",
-                  background: "linear-gradient(135deg, var(--primary), var(--accent))",
+                  padding: "16px 20px",
+                  background: "rgba(0,0,0,0.2)",
+                  borderBottom: "1px solid var(--border)",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "18px",
+                  gap: "12px",
                 }}
               >
-                🌱
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: "14px", fontWeight: 700 }}>AgroSense AI Advisor</div>
-                <div style={{ fontSize: "12px", color: "var(--success)" }}>● Active · Swahili mode · Marsabit</div>
-              </div>
-              <span className="tag-pill pill-green" style={{ fontSize: "11px" }}>
-                93% Confidence
-              </span>
-            </div>
-
-            <div
-              className="chat-messages"
-              style={{
-                padding: "20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                minHeight: "400px",
-              }}
-            >
-              {messages.map((msg, i) => (
                 <div
-                  key={i}
-                  className={`msg msg-${msg.type}`}
                   style={{
-                    maxWidth: "85%",
-                    alignSelf: msg.type === "farmer" ? "flex-end" : "flex-start",
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "10px",
+                    background: "linear-gradient(135deg, var(--primary), var(--accent))",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "18px",
                   }}
                 >
-                  <div
-                    className="msg-label"
-                    style={{
-                      fontSize: "11px",
-                      color: "var(--muted)",
-                      fontWeight: 600,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "6px",
-                      textAlign: msg.type === "farmer" ? "right" : "left",
-                    }}
-                  >
-                    {msg.label}
-                  </div>
-                  <div
-                    className="msg-bubble"
-                    style={{
-                      padding: "12px 16px",
-                      fontSize: "14px",
-                      lineHeight: 1.55,
-                      background:
-                        msg.type === "farmer"
-                          ? "rgba(46,125,50,0.25)"
-                          : "rgba(0,0,0,0.25)",
-                      border: msg.type === "farmer"
-                        ? "1px solid rgba(46,125,50,0.35)"
-                        : "1px solid var(--border2)",
-                      borderRadius: msg.type === "farmer"
-                        ? "14px 14px 4px 14px"
-                        : "14px 14px 14px 4px",
-                    }}
-                  >
-                    {msg.typing ? (
-                      <div
-                        className="typing-indicator"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "4px",
-                          padding: "10px 0",
-                        }}
-                      >
-                        {[0, 1, 2].map((d) => (
-                          <div
-                            key={d}
-                            style={{
-                              width: "7px",
-                              height: "7px",
-                              borderRadius: "50%",
-                              background: "var(--muted)",
-                              animation: `typing-bounce 1.4s ${d * 0.2}s ease-in-out infinite`,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    ) : msg.analyzing ? (
-                      <div style={{ fontSize: "12px", color: "var(--muted)", marginBottom: "8px" }}>
-                        Analysing data sources...
-                      </div>
-                    ) : null}
-
-                    {msg.text && <div style={{ color: "var(--text)" }}>{msg.text}</div>}
-
-                    {msg.metrics && (
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "10px",
-                          marginTop: "10px",
-                          flexWrap: "wrap",
-                        }}
-                      >
-                        {msg.metrics.map((m, mi) => (
-                          <div
-                            key={mi}
-                            style={{
-                              background: "rgba(0,0,0,0.3)",
-                              border: "1px solid var(--border)",
-                              borderRadius: "8px",
-                              padding: "6px 10px",
-                              fontSize: "12px",
-                            }}
-                          >
-                            <div style={{ color: "var(--muted)", fontSize: "10px" }}>
-                              {m.label}
-                            </div>
-                            <div style={{ fontWeight: 700, color: m.color }}>{m.value}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  🌱
                 </div>
-              ))}
-            </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: "14px", fontWeight: 700 }}>AgroSense AI Advisor</div>
+                  <div style={{ fontSize: "12px", color: "var(--success)" }}>● Active · Swahili mode · Marsabit</div>
+                </div>
+                <span className="tag-pill pill-green text-xs">93% Confidence</span>
+              </div>
 
-            <div
-              className="chat-input-bar"
-              style={{
-                padding: "14px 16px",
-                borderTop: "1px solid var(--border)",
-                display: "flex",
-                gap: "10px",
-              }}
-            >
-              <input
-                className="chat-input"
-                placeholder="Ask about planting, pests, irrigation, market prices..."
-                type="text"
+              <div className="p-4 md:p-5 flex flex-col gap-4" style={{ minHeight: "300px" }}>
+                {messages.map((msg, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      maxWidth: "85%",
+                      alignSelf: msg.type === "farmer" ? "flex-end" : "flex-start",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--muted)",
+                        fontWeight: 600,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                        marginBottom: "6px",
+                        textAlign: msg.type === "farmer" ? "right" : "left",
+                      }}
+                    >
+                      {msg.label}
+                    </div>
+                    <div
+                      style={{
+                        padding: "12px 16px",
+                        borderRadius: msg.type === "farmer" ? "14px 14px 4px 14px" : "14px 14px 14px 4px",
+                        fontSize: "14px",
+                        lineHeight: 1.55,
+                        background: msg.type === "farmer" ? "rgba(46,125,50,0.25)" : "rgba(0,0,0,0.25)",
+                        border: msg.type === "farmer" ? "1px solid rgba(46,125,50,0.35)" : "1px solid var(--border2)",
+                      }}
+                    >
+                      {msg.typing ? (
+                        <div className="flex items-center gap-1 py-2">
+                          {[0, 1, 2].map((d) => (
+                            <div
+                              key={d}
+                              style={{
+                                width: "7px",
+                                height: "7px",
+                                borderRadius: "50%",
+                                background: "var(--muted)",
+                                animation: `typing-bounce 1.4s ${d * 0.2}s ease-in-out infinite`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      ) : msg.analyzing ? (
+                        <div style={{ fontSize: "12px", color: "var(--muted)", marginBottom: "8px" }}>
+                          Analysing data sources...
+                        </div>
+                      ) : null}
+
+                      {msg.text && <div style={{ color: "var(--text)" }}>{msg.text}</div>}
+
+                      {msg.metrics && (
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          {msg.metrics.map((m, mi) => (
+                            <div
+                              key={mi}
+                              style={{
+                                background: "rgba(0,0,0,0.3)",
+                                border: "1px solid var(--border)",
+                                borderRadius: "8px",
+                                padding: "6px 10px",
+                                fontSize: "12px",
+                              }}
+                            >
+                              <div style={{ color: "var(--muted)", fontSize: "10px" }}>{m.label}</div>
+                              <div style={{ fontWeight: 700, color: m.color }}>{m.value}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div
                 style={{
-                  flex: 1,
-                  background: "rgba(0,0,0,0.2)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "10px",
-                  padding: "10px 14px",
-                  color: "var(--text)",
-                  fontSize: "14px",
-                  fontFamily: "inherit",
-                  outline: "none",
-                }}
-              />
-              <button
-                className="chat-send"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "10px",
-                  background: "linear-gradient(135deg, var(--primary), var(--accent2))",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "16px",
+                  padding: "14px 16px",
+                  borderTop: "1px solid var(--border)",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  transition: "all 0.2s",
+                  gap: "10px",
                 }}
               >
-                ↑
-              </button>
+                <input
+                  placeholder="Ask about planting, pests, irrigation, market prices..."
+                  type="text"
+                  style={{
+                    flex: 1,
+                    background: "rgba(0,0,0,0.2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "10px",
+                    padding: "10px 14px",
+                    color: "var(--text)",
+                    fontSize: "14px",
+                    fontFamily: "inherit",
+                    outline: "none",
+                  }}
+                />
+                <button
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "10px",
+                    background: "linear-gradient(135deg, var(--primary), var(--accent2))",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "white",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  ↑
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -11,9 +11,9 @@ export default function Journey() {
   ];
 
   return (
-    <section id="journey" className="py-24 px-12 overflow-hidden">
+    <section id="journey" className="py-16 md:py-24 px-4 md:px-8 lg:px-12 overflow-hidden">
       <div className="container mx-auto">
-        <div style={{ textAlign: "center", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px md:16px" }}>
           <div className="section-eyebrow" style={{ display: "inline-flex" }}>
             ⚡ The Complete Chain
           </div>
@@ -24,15 +24,14 @@ export default function Journey() {
         </div>
 
         <div
-          className="journey-steps"
+          className="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-0 lg:flex-nowrap"
           style={{
-            display: "flex",
-            gap: "0",
             position: "relative",
-            marginTop: "64px",
+            marginTop: "48px md:64px",
           }}
         >
           <div
+            className="hidden lg:block"
             style={{
               position: "absolute",
               top: "36px",
@@ -47,26 +46,24 @@ export default function Journey() {
           {steps.map((step, i) => (
             <div
               key={i}
-              className="journey-step"
+              className="flex flex-col items-center text-center w-1/2 sm:w-1/3 lg:w-auto"
               style={{
-                flex: 1,
-                textAlign: "center",
-                padding: "0 16px",
+                padding: "0 8px",
                 position: "relative",
               }}
             >
               <div
                 style={{
-                  width: "72px",
-                  height: "72px",
-                  borderRadius: "18px",
+                  width: "64px",
+                  height: "64px",
+                  borderRadius: "16px",
                   background: "var(--card)",
                   border: "1px solid var(--border2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "28px",
-                  margin: "0 auto 16px",
+                  fontSize: "24px",
+                  marginBottom: "12px",
                   position: "relative",
                   zIndex: 2,
                   transition: "all 0.3s",
@@ -74,29 +71,18 @@ export default function Journey() {
               >
                 {step.icon}
               </div>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  marginBottom: "6px",
-                }}
-              >
+              <div style={{ fontSize: "13px", fontWeight: 700, marginBottom: "4px" }}>
                 {step.name}
               </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "var(--muted)",
-                  lineHeight: 1.5,
-                }}
-              >
+              <div style={{ fontSize: "12px", color: "var(--muted)", lineHeight: 1.5, maxWidth: "120px" }}>
                 {step.desc}
               </div>
               {i < steps.length - 1 && (
                 <div
+                  className="hidden lg:block"
                   style={{
                     position: "absolute",
-                    top: "28px",
+                    top: "24px",
                     right: "-12px",
                     color: "var(--accent)",
                     fontSize: "18px",

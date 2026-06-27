@@ -9,7 +9,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 
 const yieldData = [
@@ -54,17 +53,9 @@ const engagementData = [
 
 export default function Analytics() {
   return (
-    <section id="analytics" className="py-24 px-12" style={{ background: "var(--bg2)" }}>
+    <section id="analytics" className="py-16 md:py-24 px-4 md:px-8 lg:px-12" style={{ background: "var(--bg2)" }}>
       <div className="container mx-auto">
-        <div
-          className="dash-header"
-          style={{
-            marginBottom: "40px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-        >
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8 md:mb-10">
           <div>
             <div className="section-eyebrow">📊 Analytics</div>
             <h2 className="section-title">
@@ -75,39 +66,32 @@ export default function Analytics() {
           </div>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "20px",
-          }}
-        >
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
           <div
-            className="chart-card"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
               borderRadius: "16px",
-              padding: "24px",
+              padding: "20px",
             }}
           >
             <div style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>
               Monthly Yield Forecast vs Actual
             </div>
-            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "20px" }}>
+            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "16px" }}>
               Maize yield index — Rift Valley, 2024–25
             </div>
-            <div style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: "var(--muted)" }}>
+            <div className="flex gap-4 mb-3">
+              <div className="flex items-center gap-2 text-xs" style={{ color: "var(--muted)" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--secondary)" }} />
                 Forecast
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: "var(--muted)" }}>
+              <div className="flex items-center gap-2 text-xs" style={{ color: "var(--muted)" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--accent)" }} />
                 Actual
               </div>
             </div>
-            <div style={{ height: "120px", borderBottom: "1px solid var(--border)" }}>
+            <div style={{ height: "120px" }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={yieldData}>
                   <defs>
@@ -120,94 +104,42 @@ export default function Analytics() {
                       <stop offset="95%" stopColor="#00BFA5" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis
-                    dataKey="month"
-                    tick={{ fill: "#8BA89E", fontSize: 11 }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
+                  <XAxis dataKey="month" tick={{ fill: "#8BA89E", fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis hide />
-                  <Tooltip
-                    contentStyle={{
-                      background: "#102A23",
-                      border: "1px solid rgba(0,191,165,0.22)",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                    }}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="forecast"
-                    stroke="#66BB6A"
-                    strokeWidth={2}
-                    fill="url(#forecastGradient)"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="actual"
-                    stroke="#00BFA5"
-                    strokeWidth={1.5}
-                    strokeDasharray="5 3"
-                    fill="url(#actualGradient)"
-                  />
+                  <Tooltip contentStyle={{ background: "#102A23", border: "1px solid rgba(0,191,165,0.22)", borderRadius: "8px", fontSize: "12px" }} />
+                  <Area type="monotone" dataKey="forecast" stroke="#66BB6A" strokeWidth={2} fill="url(#forecastGradient)" />
+                  <Area type="monotone" dataKey="actual" stroke="#00BFA5" strokeWidth={1.5} strokeDasharray="5 3" fill="url(#actualGradient)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "8px",
-              }}
-            >
+            <div className="flex justify-between mt-2 px-1">
               {["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"].map((m) => (
-                <span key={m} style={{ fontSize: "11px", color: "var(--muted)" }}>
-                  {m}
-                </span>
+                <span key={m} style={{ fontSize: "9px", color: "var(--muted)" }}>{m}</span>
               ))}
             </div>
           </div>
 
           <div
-            className="chart-card"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
               borderRadius: "16px",
-              padding: "24px",
+              padding: "20px",
             }}
           >
             <div style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>
               Disease Probability by County
             </div>
-            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "20px" }}>
+            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "16px" }}>
               Late blight risk index — this week
             </div>
-            <div style={{ height: "120px", marginTop: "16px" }}>
+            <div style={{ height: "120px" }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={diseaseData} layout="vertical">
                   <XAxis type="number" hide />
-                  <YAxis
-                    dataKey="county"
-                    type="category"
-                    tick={{ fill: "#8BA89E", fontSize: 11 }}
-                    axisLine={false}
-                    tickLine={false}
-                    width={55}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      background: "#102A23",
-                      border: "1px solid rgba(0,191,165,0.22)",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                    }}
-                  />
-                  <Bar
-                    dataKey="risk"
-                    fill="url(#diseaseGradient)"
-                    radius={[0, 4, 4, 0]}
-                  />
+                  <YAxis dataKey="county" type="category" tick={{ fill: "#8BA89E", fontSize: 11 }} axisLine={false} tickLine={false} width={55} />
+                  <Tooltip contentStyle={{ background: "#102A23", border: "1px solid rgba(0,191,165,0.22)", borderRadius: "8px", fontSize: "12px" }} />
+                  <Bar dataKey="risk" fill="url(#diseaseGradient)" radius={[0, 4, 4, 0]} />
                   <defs>
                     <linearGradient id="diseaseGradient" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stopColor="#FF5252" stopOpacity={0.8} />
@@ -221,21 +153,20 @@ export default function Analytics() {
           </div>
 
           <div
-            className="chart-card"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
               borderRadius: "16px",
-              padding: "24px",
+              padding: "20px",
             }}
           >
             <div style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>
               Rainfall Anomaly Index
             </div>
-            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "20px" }}>
+            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "16px" }}>
               % deviation from long-term mean (ICPAC data)
             </div>
-            <div style={{ height: "120px", borderBottom: "1px solid var(--border)" }}>
+            <div style={{ height: "120px" }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={rainfallData}>
                   <defs>
@@ -244,79 +175,40 @@ export default function Analytics() {
                       <stop offset="95%" stopColor="#00BFA5" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis
-                    dataKey="month"
-                    tick={{ fill: "#8BA89E", fontSize: 11 }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
+                  <XAxis dataKey="month" tick={{ fill: "#8BA89E", fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis hide />
-                  <Tooltip
-                    contentStyle={{
-                      background: "#102A23",
-                      border: "1px solid rgba(0,191,165,0.22)",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                    }}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="anomaly"
-                    stroke="#00BFA5"
-                    strokeWidth={2}
-                    fill="url(#rainfallGradient)"
-                  />
+                  <Tooltip contentStyle={{ background: "#102A23", border: "1px solid rgba(0,191,165,0.22)", borderRadius: "8px", fontSize: "12px" }} />
+                  <Area type="monotone" dataKey="anomaly" stroke="#00BFA5" strokeWidth={2} fill="url(#rainfallGradient)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "8px",
-              }}
-            >
+            <div className="flex justify-between mt-2 px-1">
               {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"].map((m) => (
-                <span key={m} style={{ fontSize: "11px", color: "var(--muted)" }}>
-                  {m}
-                </span>
+                <span key={m} style={{ fontSize: "9px", color: "var(--muted)" }}>{m}</span>
               ))}
             </div>
           </div>
 
           <div
-            className="chart-card"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
               borderRadius: "16px",
-              padding: "24px",
+              padding: "20px",
             }}
           >
             <div style={{ fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>
               Farmer Engagement
             </div>
-            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "20px" }}>
+            <div style={{ fontSize: "13px", color: "var(--muted)", marginBottom: "16px" }}>
               Advice sent vs feedback received — 30-day trend
             </div>
-            <div style={{ height: "120px", marginTop: "16px" }}>
+            <div style={{ height: "120px" }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={engagementData}>
-                  <XAxis
-                    dataKey="week"
-                    tick={{ fill: "#8BA89E", fontSize: 11 }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
+                  <XAxis dataKey="week" tick={{ fill: "#8BA89E", fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis hide />
-                  <Tooltip
-                    contentStyle={{
-                      background: "#102A23",
-                      border: "1px solid rgba(0,191,165,0.22)",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                    }}
-                  />
+                  <Tooltip contentStyle={{ background: "#102A23", border: "1px solid rgba(0,191,165,0.22)", borderRadius: "8px", fontSize: "12px" }} />
                   <Bar dataKey="sent" fill="#2E7D32" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>

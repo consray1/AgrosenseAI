@@ -81,9 +81,9 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 px-12">
+    <section id="features" className="py-16 md:py-24 px-4 md:px-8 lg:px-12">
       <div className="container mx-auto">
-        <div style={{ textAlign: "center", marginBottom: "56px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px md:56px" }}>
           <div className="section-eyebrow" style={{ display: "inline-flex" }}>
             🧩 Platform Capabilities
           </div>
@@ -95,11 +95,7 @@ export default function Features() {
         </div>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "16px",
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"
         >
           {features.map((feat, i) => (
             <FeatureCard key={i} {...feat} />
@@ -142,20 +138,16 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
 
   return (
     <div
+      className={`${large ? "md:col-span-2" : ""}`}
       style={{
         background: "var(--card)",
         border: "1px solid var(--border)",
         borderRadius: "16px",
-        padding: "28px",
+        padding: "24px",
         transition: "all 0.3s",
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
-        gridColumn: large ? "span 2" : "span 1",
-        display: large ? "grid" : "block",
-        gridTemplateColumns: large ? "1fr 1fr" : "unset",
-        gap: large ? "24px" : "0",
-        alignItems: "start",
       }}
     >
       <div
@@ -169,7 +161,6 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
           opacity: 0,
           transition: "opacity 0.3s",
         }}
-        className="feat-top-line"
       />
       <div>
         <div
@@ -207,7 +198,6 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
           {desc}
         </div>
         <div
-          className="feat-tag"
           style={{
             display: "inline-block",
             marginTop: "14px",
@@ -226,13 +216,12 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
       </div>
 
       {large && chart && (
-        <div>
+        <div className="mt-4 md:mt-0">
           <div
             style={{
               background: "rgba(0,0,0,0.2)",
               borderRadius: "10px",
               padding: "12px",
-              marginTop: "4px",
             }}
           >
             <div style={{ fontSize: "11px", color: "var(--muted)", marginBottom: "8px" }}>
@@ -241,11 +230,7 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
             <svg viewBox="0 0 200 60" style={{ width: "100%", height: "60px" }}>
               <line x1="0" y1="30" x2="200" y2="30" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4" />
               <polyline
-                points={
-                  chart.label.includes("LATENCY")
-                    ? "0,45 30,35 60,38 90,20 120,15 150,10 200,8"
-                    : "0,20 30,22 60,28 90,38 120,45 150,50 200,54"
-                }
+                points={chart.label.includes("LATENCY") ? "0,45 30,35 60,38 90,20 120,15 150,10 200,8" : "0,20 30,22 60,28 90,38 120,45 150,50 200,54"}
                 stroke={chart.color}
                 strokeWidth="2"
                 fill="none"
@@ -253,13 +238,7 @@ function FeatureCard({ icon, iconClass, name, desc, tag, large, chart, subText }
             </svg>
           </div>
           {subText && (
-            <div
-              style={{
-                marginTop: "12px",
-                fontSize: "12px",
-                color: "var(--muted)",
-              }}
-            >
+            <div style={{ marginTop: "12px", fontSize: "12px", color: "var(--muted)" }}>
               {subText}
             </div>
           )}

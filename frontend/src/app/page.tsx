@@ -32,13 +32,14 @@ export default function Home() {
 function HusikaBanner() {
   return (
     <div
+      className="px-4 md:px-8 lg:px-12"
       style={{
         background: "rgba(0,191,165,0.07)",
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
-        padding: "14px 48px",
+        padding: "14px 24px",
         textAlign: "center",
-        fontSize: "13px",
+        fontSize: "12px md:13px",
         color: "var(--muted)",
       }}
     >

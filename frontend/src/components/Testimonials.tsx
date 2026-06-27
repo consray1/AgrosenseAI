@@ -26,82 +26,59 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-24 px-12" style={{ background: "var(--bg2)" }}>
+    <section id="testimonials" className="py-16 md:py-24 px-4 md:px-8 lg:px-12" style={{ background: "var(--bg2)" }}>
       <div className="container mx-auto">
-        <div style={{ textAlign: "center", marginBottom: "56px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px md:56px" }}>
           <div className="section-eyebrow" style={{ display: "inline-flex" }}>
             💬 From the Field
           </div>
           <h2 className="section-title">What they&apos;re saying</h2>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="testimonial-card"
               style={{
                 background: "var(--card)",
                 border: "1px solid var(--border)",
                 borderRadius: "16px",
-                padding: "28px",
+                padding: "24px",
                 transition: "all 0.3s",
               }}
             >
-              <div
-                style={{
-                  color: "var(--highlight)",
-                  fontSize: "12px",
-                  marginBottom: "14px",
-                }}
-              >
+              <div style={{ color: "var(--highlight)", fontSize: "12px", marginBottom: "12px" }}>
                 ★★★★★
               </div>
-              <div
-                style={{
-                  fontSize: "40px",
-                  color: "var(--accent)",
-                  lineHeight: 1,
-                  marginBottom: "12px",
-                  opacity: 0.5,
-                }}
-              >
+              <div style={{ fontSize: "36px", color: "var(--accent)", lineHeight: 1, marginBottom: "12px", opacity: 0.5 }}>
                 "
               </div>
               <div
                 style={{
-                  fontSize: "15px",
+                  fontSize: "14px",
                   color: "var(--text)",
                   lineHeight: 1.7,
-                  marginBottom: "20px",
+                  marginBottom: "16px",
                 }}
               >
                 {t.text}
               </div>
               <div
+                className="flex items-center gap-3"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
                   paddingTop: "16px",
                   borderTop: "1px solid var(--border)",
                 }}
               >
                 <div
                   style={{
-                    width: "44px",
-                    height: "44px",
-                    borderRadius: "12px",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "10px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "20px",
+                    fontSize: "18px",
                     flexShrink: 0,
                     background:
                       t.avatarBg === "aa-green"
@@ -120,21 +97,8 @@ export default function Testimonials() {
                   {t.avatar}
                 </div>
                 <div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {t.author}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "var(--muted)",
-                      marginTop: "2px",
-                    }}
-                  >
+                  <div style={{ fontSize: "14px", fontWeight: 700 }}>{t.author}</div>
+                  <div style={{ fontSize: "12px", color: "var(--muted)", marginTop: "2px" }}>
                     {t.role}
                   </div>
                 </div>
