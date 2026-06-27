@@ -1,168 +1,199 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const navItems = ["Dashboard", "Features", "AI Advisor", "Analytics", "Impact"];
 
-  const handleNavClick = () => {
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
     setMenuOpen(false);
   };
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    }
-
-    if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuOpen]);
-
   return (
-    <nav
-      ref={menuRef}
-      className="fixed top-0 left-0 right-0 z-[100]"
-      style={{
-        background: "rgba(8,28,21,0.98)",
-        backdropFilter: "blur(20px)",
-        borderBottom: "1px solid var(--border)",
-      }}
-    >
-      <div
-        className="flex items-center justify-between"
-        style={{
-          height: "64px",
-          padding: "0 16px",
-        }}
-      >
-        <a
-          href="#"
-          className="flex items-center gap-2 no-underline"
-          style={{ fontWeight: 800, fontSize: "16px", color: "var(--text)" }}
-        >
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "6px",
-              background: "linear-gradient(135deg, var(--primary), var(--accent))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "14px",
-            }}
-          >
-            🌱
-          </div>
-          <span className="hidden sm:inline">AgroSense AI</span>
-          <span className="sm:hidden">AgroSense</span>
-        </a>
-
-        <div className="hidden lg:flex items-center gap-8" style={{ marginLeft: "auto" }}>
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "-")}`}
-              className="no-underline"
-              style={{
-                color: "var(--muted)",
-                fontSize: "14px",
-                fontWeight: 500,
-                transition: "color 0.2s",
-              }}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-
-        <div className="hidden lg:flex items-center gap-3">
-          <a href="#dashboard" className="btn btn-ghost">
-            Explore
+    <>
+      <nav className="navbar">
+        <div className="navbar-inner">
+          <a href="#" className="navbar-brand">
+            <div className="navbar-logo">🌱</div>
+            <span className="brand-full">AgroSense AI</span>
+            <span className="brand-short">AgroSense</span>
           </a>
-          <a href="#ai-chat" className="btn btn-primary">
-            Try Demo
-          </a>
-        </div>
 
-        <button
-          className="lg:hidden flex items-center justify-center"
-          onClick={(e) => {
-            e.stopPropagation();
-            setMenuOpen(!menuOpen);
-          }}
-          style={{
-            background: "transparent",
-            border: "1px solid var(--border2)",
-            borderRadius: "6px",
-            padding: "6px 10px",
-            color: "var(--text)",
-            cursor: "pointer",
-            fontSize: "16px",
-            minWidth: "36px",
-            minHeight: "36px",
-          }}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
-      </div>
-
-      {menuOpen && (
-        <div
-          className="lg:hidden"
-          style={{
-            background: "rgba(8,28,21,0.99)",
-            borderTop: "1px solid var(--border)",
-            padding: "8px 16px 16px",
-          }}
-        >
-          <div className="flex flex-col">
+          <div className="navbar-links">
             {navItems.map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(" ", "-")}`}
-                onClick={handleNavClick}
-                className="no-underline py-3"
-                style={{
-                  color: "var(--text)",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  borderBottom: "1px solid var(--border)",
-                }}
+                className="navbar-link"
               >
                 {item}
               </a>
             ))}
+            <a href="#dashboard" className="btn btn-ghost ml-2">Explore</a>
+            <a href="#ai-chat" className="btn btn-primary">Try Demo</a>
           </div>
-          <div className="flex gap-2 mt-4">
-            <a
-              href="#dashboard"
-              onClick={handleNavClick}
-              className="btn btn-ghost flex-1 justify-center text-sm"
-            >
-              Explore
-            </a>
-            <a
-              href="#ai-chat"
-              onClick={handleNavClick}
-              className="btn btn-primary flex-1 justify-center text-sm"
-            >
-              Try Demo
-            </a>
-          </div>
+
+          <button
+            className="navbar-hamburger"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
         </div>
-      )}
-    </nav>
+
+        {menuOpen && (
+          <div className="navbar-mobile-menu">
+            <div className="mobile-links">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase().replace(" ", "-")}`}
+                  onClick={closeMenu}
+                  className="mobile-link"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+            <div className="mobile-buttons">
+              <a href="#dashboard" onClick={closeMenu} className="btn btn-ghost flex-1 justify-center text-sm">
+                Explore
+              </a>
+              <a href="#ai-chat" onClick={closeMenu} className="btn btn-primary flex-1 justify-center text-sm">
+                Try Demo
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      <style jsx global>{`
+        .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 9999;
+          background: rgba(8, 28, 21, 0.98);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(0, 191, 165, 0.12);
+        }
+
+        .navbar-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 64px;
+          padding: 0 16px;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .navbar-brand {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+          font-weight: 800;
+          font-size: 16px;
+          color: #F5F5F5;
+        }
+
+        .navbar-logo {
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+          background: linear-gradient(135deg, #2E7D32, #00BFA5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+        }
+
+        .brand-full { display: inline; }
+        .brand-short { display: none; }
+
+        @media (max-width: 639px) {
+          .brand-full { display: none; }
+          .brand-short { display: inline; }
+        }
+
+        .navbar-links {
+          display: flex;
+          align-items: center;
+          gap: 32px;
+        }
+
+        .navbar-link {
+          color: #8BA89E;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .navbar-link:hover {
+          color: #F5F5F5;
+        }
+
+        .navbar-hamburger {
+          display: none;
+          background: transparent;
+          border: 1px solid rgba(0, 191, 165, 0.22);
+          border-radius: 6px;
+          padding: 6px 10px;
+          color: #F5F5F5;
+          cursor: pointer;
+          font-size: 16px;
+          min-width: 36px;
+          min-height: 36px;
+          align-items: center;
+          justify-content: center;
+        }
+
+        @media (max-width: 1023px) {
+          .navbar-links {
+            display: none !important;
+          }
+          .navbar-hamburger {
+            display: flex !important;
+          }
+        }
+
+        .navbar-mobile-menu {
+          background: rgba(8, 28, 21, 0.99);
+          border-top: 1px solid rgba(0, 191, 165, 0.12);
+          padding: 8px 16px 16px;
+        }
+
+        .mobile-links {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .mobile-link {
+          color: #F5F5F5;
+          font-size: 15px;
+          font-weight: 500;
+          text-decoration: none;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(0, 191, 165, 0.12);
+          display: block;
+        }
+
+        .mobile-buttons {
+          display: flex;
+          gap: 8px;
+          margin-top: 16px;
+        }
+      `}</style>
+    </>
   );
 }
