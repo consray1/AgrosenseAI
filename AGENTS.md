@@ -54,6 +54,29 @@ docs/        # Crop knowledge PDFs (to be downloaded from CIMMYT, FAO, CGIAR, et
 - [ ] Test WhatsApp delivery with a real number 2 hours before demo
 - [ ] Monitor Celery worker status during demo
 
+## Commit & Push Workflow
+
+Before pushing changes to remote, generate and display a commit summary table:
+
+```
+| File(s) Changed | Commit Message |
+|-----------------|----------------|
+| src/components/Navbar.tsx | Fix navbar mobile menu click handler |
+| src/app/page.tsx | Update page layout padding |
+```
+
+**Steps:**
+1. Run `git status` and `git diff --stat` to identify changed files
+2. Group files by logical change (e.g., all responsive fixes together)
+3. Write a concise commit message (1-2 sentences, imperative mood)
+4. Stage and commit with `git add . && git commit -m "message"`
+5. Push with `git push`
+
+**Commit message rules:**
+- Use imperative mood ("Fix bug" not "Fixed bug")
+- First line: 72 characters max
+- Be specific: mention the component/feature, not just "update"
+
 ## Key Files
 
 | File | Purpose |
