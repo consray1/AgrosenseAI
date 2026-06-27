@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroSense AI — Climate Intelligence for Every Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #081C15;
+  --bg2:      #0a2118;
+  --card:     #102A23;
+  --card2:    #143028;
+  --primary:  #2E7D32;
+  --primary2: #388E3C;
+  --secondary:#66BB6A;
+  --accent:   #00BFA5;
+  --accent2:  #00897B;
+  --highlight:#FFC107;
+  --text:     #F5F5F5;
+  --muted:    #8BA89E;
+  --success:  #00E676;
+  --danger:   #FF5252;
+  --border:   rgba(0,191,165,0.12);
+  --border2:  rgba(0,191,165,0.22);
+  --glow:     0 0 40px rgba(46,125,50,0.25);
+  --glow2:    0 0 60px rgba(0,191,165,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(8,28,21,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 18px; color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none; color: var(--muted);
+  font-size: 14px; font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  display: flex; gap: 12px;
+}
+
+.btn {
+  padding: 9px 20px; border-radius: 8px; font-size: 14px;
+  font-weight: 600; cursor: pointer; border: none;
+  transition: all 0.2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border2);
+}
+
+.btn-ghost:hover { background: rgba(255,255,255,0.05); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(46,125,50,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(46,125,50,0.4);
+}
+
+.btn-lg {
+  padding: 14px 28px; font-size: 16px; border-radius: 10px;
+}
+
+.btn-outline-accent {
+  background: transparent; color: var(--accent);
+  border: 1px solid rgba(0,191,165,0.4);
+}
+
+.btn-outline-accent:hover {
+  background: rgba(0,191,165,0.08);
+}
+
+/* ── Sections generic ────────────────────────────────────── */
+section { padding: 100px 48px; }
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.25);
+  color: var(--accent); font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800; line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 18px; color: var(--muted);
+  max-width: 560px; margin-bottom: 48px;
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 50%, rgba(46,125,50,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, rgba(0,191,165,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, rgba(255,193,7,0.05) 0%, transparent 40%);
+}
+
+/* Grid lines */
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,191,165,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,191,165,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  padding-top: 64px;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.3);
+  color: var(--accent); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 20px; margin-bottom: 28px;
+}
+
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--success);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero-h1 {
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 900; line-height: 1.08;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+}
+
+.hero-h1 .accent-word {
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 18px; color: var(--muted); line-height: 1.7;
+  margin-bottom: 36px; max-width: 480px;
+}
+
+.hero-ctas {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px;
+}
+
+.hero-stats {
+  display: flex; gap: 32px;
+}
+
+.hstat { border-left: 2px solid var(--border2); padding-left: 16px; }
+.hstat-num { font-size: 24px; font-weight: 800; color: var(--text); }
+.hstat-lbl { font-size: 12px; color: var(--muted); }
+
+/* ── Radar Canvas ── */
+.radar-wrapper {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.radar-container {
+  position: relative;
+  width: 480px; height: 480px;
+}
+
+.radar-rings {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0,191,165,0.2);
+}
+.ring-1 { width: 100px; height: 100px; animation: ring-pulse 3s 0s infinite; }
+.ring-2 { width: 200px; height: 200px; animation: ring-pulse 3s 0.4s infinite; }
+.ring-3 { width: 300px; height: 300px; animation: ring-pulse 3s 0.8s infinite; }
+.ring-4 { width: 400px; height: 400px; animation: ring-pulse 3s 1.2s infinite; }
+
+@keyframes ring-pulse {
+  0% { border-color: rgba(0,191,165,0.35); transform: scale(0.97); }
+  50% { border-color: rgba(0,191,165,0.12); transform: scale(1.01); }
+  100% { border-color: rgba(0,191,165,0.35); transform: scale(0.97); }
+}
+
+/* Rotating scan line */
+.radar-scan {
+  position: absolute; top: 50%; left: 50%;
+  width: 50%; height: 1px;
+  transform-origin: left center;
+  animation: scan-rotate 4s linear infinite;
+  background: linear-gradient(to right, rgba(0,191,165,0.6), transparent);
+}
+
+@keyframes scan-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Center dot — Kenya */
+.radar-center {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(102,187,106,0.3), 0 0 20px rgba(102,187,106,0.4);
+  z-index: 4;
+}
+
+/* Alert dots on the radar */
+.alert-dot {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.alert-dot::before {
+  content: '';
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  animation: dot-ring 2s infinite;
+}
+
+@keyframes dot-ring {
+  0% { transform: scale(1); opacity: 0.8; border: 1px solid currentColor; }
+  100% { transform: scale(2.5); opacity: 0; border: 1px solid currentColor; }
+}
+
+.dot-drought {
+  width: 10px; height: 10px;
+  background: var(--highlight);
+  top: 35%; left: 42%;
+  box-shadow: 0 0 12px var(--highlight);
+  animation: float-slight 3s ease-in-out infinite;
+}
+
+.dot-drought::before { color: var(--highlight); }
+
+.dot-flood {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  top: 58%; left: 65%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: float-slight 4s ease-in-out 1s infinite;
+}
+
+.dot-high {
+  width: 10px; height: 10px;
+  background: var(--danger);
+  top: 25%; left: 60%;
+  box-shadow: 0 0 12px var(--danger);
+  animation: float-slight 3.5s ease-in-out 0.5s infinite;
+}
+
+.dot-ok {
+  width: 7px; height: 7px;
+  background: var(--success);
+  top: 65%; left: 38%;
+  box-shadow: 0 0 10px var(--success);
+  animation: float-slight 5s ease-in-out 2s infinite;
+}
+
+@keyframes float-slight {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Floating info cards on radar */
+.float-card {
+  position: absolute;
+  background: rgba(16,42,35,0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  z-index: 5;
+  box-shadow: var(--glow);
+  animation: float-card-anim 6s ease-in-out infinite;
+}
+
+@keyframes float-card-anim {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.fc-top-right {
+  top: 4%; right: 2%;
+  animation-delay: 0s;
+}
+
+.fc-bottom-left {
+  bottom: 8%; left: 0%;
+  animation-delay: 2s;
+}
+
+.fc-mid-right {
+  top: 48%; right: -2%;
+  animation-delay: 1s;
+}
+
+.fc-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+
+.fc-val {
+  font-size: 18px; font-weight: 800;
+}
+
+.fc-sub {
+  font-size: 11px; color: var(--muted); margin-top: 2px;
+}
+
+.text-green  { color: var(--secondary); }
+.text-yellow { color: var(--highlight); }
+.text-teal   { color: var(--accent); }
+.text-red    { color: var(--danger); }
+.text-muted  { color: var(--muted); }
+
+/* ── Dashboard Preview ────────────────────────────────────── */
+#dashboard { background: var(--bg2); padding: 100px 48px; }
+
+.dash-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 48px;
+}
+
+.dash-preview {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--glow2), 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.dash-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,0.25);
+  border-bottom: 1px solid var(--border);
+}
+
+.dot-win { width: 12px; height: 12px; border-radius: 50%; }
+.dot-red { background: #FF5F57; }
+.dot-yellow { background: #FFBD2E; }
+.dot-green { background: #28CA41; }
+
+.dash-titlebar-name {
+  margin-left: 8px; font-size: 13px; color: var(--muted); font-weight: 500;
+}
+
+.dash-body {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  height: 560px;
+}
+
+/* Sidebar */
+.dash-sidebar {
+  background: rgba(0,0,0,0.2);
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+}
+
+.dash-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  cursor: pointer; margin-bottom: 2px;
+  transition: all 0.2s;
+}
+
+.dash-nav-item.active {
+  background: rgba(46,125,50,0.2); color: var(--secondary);
+  border: 1px solid rgba(46,125,50,0.25);
+}
+
+.dash-nav-item:hover:not(.active) { background: rgba(255,255,255,0.04); }
+
+.nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+.sidebar-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(139,168,158,0.5);
+  padding: 12px 12px 6px;
+}
+
+/* Map area */
+.dash-map {
+  position: relative; overflow: hidden;
+  background: #0b1f18;
+}
+
+.map-svg {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+
+/* SVG Kenya outline — simplified */
+.kenya-outline {
+  fill: rgba(46,125,50,0.12);
+  stroke: rgba(102,187,106,0.4);
+  stroke-width: 1.5;
+}
+
+.drought-zone {
+  fill: rgba(255,193,7,0.25);
+  stroke: rgba(255,193,7,0.6);
+  stroke-width: 1;
+  animation: zone-pulse 3s ease-in-out infinite;
+}
+
+.flood-zone {
+  fill: rgba(0,191,165,0.2);
+  stroke: rgba(0,191,165,0.5);
+  stroke-width: 1;
+  animation: zone-pulse 3s ease-in-out 1.5s infinite;
+}
+
+@keyframes zone-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.map-overlay-cards {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+
+.map-chip {
+  position: absolute;
+  background: rgba(16,42,35,0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* Map bar: layers */
+.map-layers {
+  position: absolute; bottom: 12px; left: 12px; right: 12px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+
+.layer-pill {
+  background: rgba(16,42,35,0.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--border2); border-radius: 20px;
+  padding: 4px 10px; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+
+.layer-pill.active {
+  background: rgba(46,125,50,0.25); border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.layer-pill:hover:not(.active) { border-color: var(--accent); }
+
+/* Right panel */
+.dash-right {
+  border-left: 1px solid var(--border);
+  padding: 16px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.ai-insight-card {
+  background: linear-gradient(135deg, rgba(46,125,50,0.15), rgba(0,191,165,0.08));
+  border: 1px solid rgba(46,125,50,0.3);
+  border-radius: 12px; padding: 14px;
+}
+
+.ai-insight-header {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+}
+
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: pulse-dot 1.5s infinite; }
+
+.insight-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+.risk-meter {
+  background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px;
+}
+
+.risk-title { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+
+.risk-bar-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+
+.risk-crop { font-size: 12px; color: var(--text); width: 60px; flex-shrink: 0; }
+.risk-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.risk-bar-fill { height: 100%; border-radius: 3px; }
+.risk-pct { font-size: 11px; font-weight: 700; width: 32px; text-align: right; }
+
+.stat-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+
+.stat-mini {
+  background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+}
+
+.stat-mini-val { font-size: 20px; font-weight: 800; }
+.stat-mini-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Sparkline */
+.sparkline {
+  width: 100%; height: 44px;
+  position: relative; overflow: visible;
+}
+
+.sparkline polyline {
+  fill: none; stroke: var(--accent); stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.sparkline polygon { fill: rgba(0,191,165,0.1); }
+
+/* ── Features ─────────────────────────────────────────────── */
+#features { padding: 100px 48px; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.feat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.feat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border2);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(0,191,165,0.08);
+}
+
+.feat-card:hover::before { opacity: 1; }
+
+/* Featured large cards */
+.feat-card.large {
+  grid-column: span 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  align-items: start;
+}
+
+.feat-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.fi-green { background: rgba(46,125,50,0.2); border: 1px solid rgba(46,125,50,0.3); }
+.fi-teal  { background: rgba(0,191,165,0.15); border: 1px solid rgba(0,191,165,0.3); }
+.fi-yellow{ background: rgba(255,193,7,0.15); border: 1px solid rgba(255,193,7,0.3); }
+.fi-red   { background: rgba(255,82,82,0.15); border: 1px solid rgba(255,82,82,0.3); }
+.fi-blue  { background: rgba(66,165,245,0.15); border: 1px solid rgba(66,165,245,0.3); }
+.fi-purple{ background: rgba(171,71,188,0.15); border: 1px solid rgba(171,71,188,0.3); }
+
+.feat-name {
+  font-size: 17px; font-weight: 700; margin-bottom: 8px;
+}
+
+.feat-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.6;
+}
+
+.feat-tag {
+  display: inline-block; margin-top: 14px;
+  background: rgba(0,191,165,0.1); color: var(--accent);
+  border: 1px solid rgba(0,191,165,0.2);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 3px 10px; border-radius: 12px;
+}
+
+/* Mini live chart inside large card */
+.feat-mini-chart {
+  background: rgba(0,0,0,0.2); border-radius: 10px; padding: 12px;
+  margin-top: 4px;
+}
+
+.mini-chart-label {
+  font-size: 11px; color: var(--muted); margin-bottom: 8px;
+}
+
+/* ── AI Chat Section ─────────────────────────────────────── */
+#ai-chat { background: var(--bg2); padding: 100px 48px; }
+
+.chat-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+
+.chat-window {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.chat-header {
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+
+.chat-avatar {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.chat-header-info { flex: 1; }
+.chat-header-name { font-size: 14px; font-weight: 700; }
+.chat-header-status { font-size: 12px; color: var(--success); }
+
+.chat-messages {
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  min-height: 400px;
+}
+
+.msg { max-width: 85%; }
+
+.msg-farmer { align-self: flex-end; }
+.msg-ai { align-self: flex-start; }
+
+.msg-bubble {
+  padding: 12px 16px; border-radius: 14px;
+  font-size: 14px; line-height: 1.55;
+}
+
+.msg-farmer .msg-bubble {
+  background: rgba(46,125,50,0.25);
+  border: 1px solid rgba(46,125,50,0.35);
+  border-radius: 14px 14px 4px 14px;
+}
+
+.msg-ai .msg-bubble {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border2);
+  border-radius: 14px 14px 14px 4px;
+}
+
+.msg-label {
+  font-size: 11px; color: var(--muted); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.msg-farmer .msg-label { text-align: right; }
+
+.ai-metrics {
+  display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+}
+
+.ai-metric-pill {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px;
+  font-size: 12px;
+}
+
+.ai-metric-pill .m-label { color: var(--muted); font-size: 10px; }
+.ai-metric-pill .m-val { font-weight: 700; }
+
+.typing-indicator {
+  display: flex; align-items: center; gap: 4px; padding: 10px 0;
+}
+
+.typing-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--muted);
+  animation: typing-bounce 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+.chat-input-bar {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 10px;
+}
+
+.chat-input {
+  flex: 1; background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px;
+  color: var(--text); font-size: 14px; font-family: inherit;
+  outline: none;
+}
+
+.chat-input:focus { border-color: var(--accent); }
+
+.chat-send {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  border: none; cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; transition: all 0.2s;
+}
+
+.chat-send:hover { transform: scale(1.05); }
+
+.chat-context-list {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-top: 16px;
+}
+
+.context-item {
+  display: flex; gap: 16px; align-items: flex-start;
+}
+
+.context-num {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.25);
+  color: var(--accent); font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+.context-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.context-desc { font-size: 14px; color: var(--muted); }
+
+/* ── Journey Timeline ─────────────────────────────────────── */
+#journey { padding: 100px 48px; overflow: hidden; }
+
+.journey-steps {
+  display: flex; gap: 0; position: relative;
+  margin-top: 64px;
+}
+
+.journey-steps::before {
+  content: '';
+  position: absolute; top: 36px; left: 72px; right: 72px; height: 2px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  opacity: 0.4;
+}
+
+.journey-step {
+  flex: 1; text-align: center; padding: 0 16px;
+  position: relative;
+}
+
+.journey-icon-wrap {
+  width: 72px; height: 72px; border-radius: 18px;
+  background: var(--card); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin: 0 auto 16px;
+  position: relative; z-index: 2;
+  transition: all 0.3s;
+}
+
+.journey-step:hover .journey-icon-wrap {
+  border-color: var(--accent);
+  box-shadow: 0 0 30px rgba(0,191,165,0.2);
+  transform: translateY(-4px);
+}
+
+.journey-arrow {
+  position: absolute; top: 28px; right: -12px;
+  color: var(--accent); font-size: 18px; z-index: 3;
+  opacity: 0.5;
+}
+
+.journey-step-name {
+  font-size: 14px; font-weight: 700; margin-bottom: 6px;
+}
+
+.journey-step-desc {
+  font-size: 13px; color: var(--muted); line-height: 1.5;
+}
+
+/* ── Analytics Section ────────────────────────────────────── */
+#analytics { background: var(--bg2); padding: 100px 48px; }
+
+.analytics-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.chart-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+}
+
+.chart-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.chart-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 8px; height: 120px;
+}
+
+.bar-col {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+
+.bar-fill-wrap {
+  width: 100%; flex: 1; display: flex; flex-direction: column;
+  justify-content: flex-end; border-radius: 4px 4px 0 0; overflow: hidden;
+}
+
+.bar-item {
+  border-radius: 4px 4px 0 0;
+  min-height: 4px;
+  transition: height 0.8s ease;
+}
+
+.bar-lbl { font-size: 10px; color: var(--muted); }
+
+.area-chart-wrap {
+  position: relative; height: 120px;
+  border-bottom: 1px solid var(--border);
+}
+
+.area-chart-wrap svg { width: 100%; height: 100%; }
+
+.x-labels { display: flex; justify-content: space-between; margin-top: 8px; }
+.x-lbl { font-size: 11px; color: var(--muted); }
+
+.legend { display: flex; gap: 16px; margin-bottom: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ── Impact Section ───────────────────────────────────────── */
+#impact { padding: 100px 48px; }
+
+.impact-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  margin-bottom: 64px;
+}
+
+.impact-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px 24px; text-align: center;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+
+.impact-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+}
+
+.ic-green::after { background: linear-gradient(to right, var(--primary), var(--secondary)); }
+.ic-teal::after  { background: linear-gradient(to right, var(--accent), var(--accent2)); }
+.ic-yellow::after{ background: linear-gradient(to right, var(--highlight), #FF8F00); }
+.ic-red::after   { background: linear-gradient(to right, var(--danger), #FF1744); }
+
+.impact-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border2);
+  box-shadow: var(--glow);
+}
+
+.impact-icon { font-size: 32px; margin-bottom: 16px; }
+
+.impact-num {
+  font-size: 48px; font-weight: 900; line-height: 1;
+  margin-bottom: 8px;
+}
+
+.impact-label {
+  font-size: 15px; color: var(--muted); line-height: 1.4;
+}
+
+/* ── Testimonials ──────────────────────────────────────────── */
+#testimonials { background: var(--bg2); padding: 100px 48px; }
+
+.testimonial-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+
+.testimonial-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px;
+  transition: all 0.3s;
+}
+
+.testimonial-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+
+.quote-mark { font-size: 40px; color: var(--accent); line-height: 1; margin-bottom: 12px; opacity: 0.5; }
+
+.testimonial-text {
+  font-size: 15px; color: var(--text); line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+
+.aa-green { background: rgba(46,125,50,0.2); border: 1px solid rgba(46,125,50,0.3); }
+.aa-teal  { background: rgba(0,191,165,0.15); border: 1px solid rgba(0,191,165,0.3); }
+.aa-yellow{ background: rgba(255,193,7,0.15); border: 1px solid rgba(255,193,7,0.3); }
+
+.author-name { font-size: 14px; font-weight: 700; }
+.author-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.stars { color: var(--highlight); font-size: 12px; margin-bottom: 14px; }
+
+/* ── CTA Band ──────────────────────────────────────────────── */
+#cta-band {
+  padding: 100px 48px;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(46,125,50,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(0,191,165,0.12) 0%, transparent 60%);
+  text-align: center;
+}
+
+#cta-band h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 900; margin-bottom: 16px; letter-spacing: -1px; }
+#cta-band p  { font-size: 18px; color: var(--muted); margin-bottom: 36px; }
+.cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+  padding: 64px 48px 40px;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.2);
+}
+
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 48px;
+  max-width: 1200px; margin-left: auto; margin-right: auto;
+}
+
+.footer-brand p { font-size: 14px; color: var(--muted); margin-top: 12px; max-width: 240px; line-height: 1.6; }
+
+.footer-col h4 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text); margin-bottom: 16px;
+}
+
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--text); }
+
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--muted);
+}
+
+.footer-badges { display: flex; gap: 10px; }
+.footer-badge {
+  background: rgba(0,191,165,0.1); border: 1px solid rgba(0,191,165,0.2);
+  color: var(--accent); font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 12px;
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;
+}
+
+.pill-green { background: rgba(0,230,118,0.12); color: var(--success); border: 1px solid rgba(0,230,118,0.2); }
+.pill-yellow{ background: rgba(255,193,7,0.12); color: var(--highlight); border: 1px solid rgba(255,193,7,0.2); }
+.pill-red   { background: rgba(255,82,82,0.12); color: var(--danger); border: 1px solid rgba(255,82,82,0.2); }
+.pill-teal  { background: rgba(0,191,165,0.12); color: var(--accent); border: 1px solid rgba(0,191,165,0.2); }
+
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  section { padding: 64px 24px; }
+  #hero { padding: 0 24px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .radar-container { width: 320px; height: 320px; }
+  .ring-4 { display: none; }
+  .dash-body { grid-template-columns: 1fr; }
+  .dash-sidebar, .dash-right { display: none; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .feat-card.large { grid-column: span 2; }
+  .chat-layout { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+  .testimonial-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .analytics-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">🌱</div>
+    AgroSense AI
+  </a>
+  <ul class="nav-links">
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#ai-chat">AI Advisor</a></li>
+    <li><a href="#analytics">Analytics</a></li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#dashboard" class="btn btn-ghost">Explore</a>
+    <a href="#ai-chat" class="btn btn-primary">Try Demo</a>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Powered by HUSIKA / ICPAC · Live in East Africa
+      </div>
+
+      <h1 class="hero-h1">
+        AI That Turns<br>
+        <span class="accent-word">Climate Data</span><br>
+        Into Farm Decisions
+      </h1>
+
+      <p class="hero-sub">
+        AgroSense AI extends HUSIKA's early warning system into an intelligent decision engine — delivering crop-specific, growth-stage-aware farming advice to 18 million smallholders across East Africa.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#ai-chat" class="btn btn-primary btn-lg">
+          ⚡ Try the AI Advisor
+        </a>
+        <a href="#dashboard" class="btn btn-outline-accent btn-lg">
+          Explore Dashboard →
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-num text-green">18M+</div>
+          <div class="hstat-lbl">Farmers Reachable</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-num text-teal">93%</div>
+          <div class="hstat-lbl">Forecast Accuracy</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-num" style="color:var(--highlight)">8s</div>
+          <div class="hstat-lbl">Advice Delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RADAR -->
+    <div class="radar-wrapper">
+      <div class="radar-container">
+        <div class="radar-rings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="ring ring-4"></div>
+        </div>
+
+        <div class="radar-scan"></div>
+        <div class="radar-center"></div>
+
+        <!-- Alert dots -->
+        <div class="alert-dot dot-drought"></div>
+        <div class="alert-dot dot-flood"></div>
+        <div class="alert-dot dot-high"></div>
+        <div class="alert-dot dot-ok"></div>
+
+        <!-- Floating cards -->
+        <div class="float-card fc-top-right">
+          <div class="fc-label text-yellow">🔴 Drought Alert</div>
+          <div class="fc-val text-yellow">HIGH RISK</div>
+          <div class="fc-sub">Marsabit, Turkana</div>
+        </div>
+
+        <div class="float-card fc-bottom-left">
+          <div class="fc-label text-teal">🌧 Rainfall Forecast</div>
+          <div class="fc-val text-teal">+32mm</div>
+          <div class="fc-sub">Next 7 days · Nakuru</div>
+        </div>
+
+        <div class="float-card fc-mid-right">
+          <div class="fc-label text-green">🤖 AI Advice Sent</div>
+          <div class="fc-val text-green">2,847</div>
+          <div class="fc-sub">Farmers reached · Today</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── HUSIKA BANNER ────────────────────────────── -->
+<div style="background: rgba(0,191,165,0.07); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 48px; text-align: center; font-size: 13px; color: var(--muted);">
+  <span style="color:var(--accent); font-weight:700;">AgroSense AI</span> is an intelligent extension of&nbsp;
+  <span style="color:var(--secondary); font-weight:700;">HUSIKA MIMS</span>&nbsp;— the official early warning platform of the IGAD Climate Prediction and Applications Centre (ICPAC), serving 11 countries across the Greater Horn of Africa.
+</div>
+
+<!-- ── DASHBOARD PREVIEW ────────────────────────── -->
+<section id="dashboard">
+  <div class="container">
+    <div class="dash-header">
+      <div>
+        <div class="section-eyebrow">🗺 Live Dashboard</div>
+        <h2 class="section-title">Everything in one<br>intelligent view</h2>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span class="tag-pill pill-green">● Live Data</span>
+        <span class="tag-pill pill-yellow">⚠ 3 Active Alerts</span>
+        <a href="#" class="btn btn-primary">Open Dashboard →</a>
+      </div>
+    </div>
+
+    <div class="dash-preview">
+      <div class="dash-titlebar">
+        <div class="dot-win dot-red"></div>
+        <div class="dot-win dot-yellow"></div>
+        <div class="dot-win dot-green"></div>
+        <span class="dash-titlebar-name">AgroSense AI — Farm Intelligence Dashboard</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--muted);">Wed 25 Jun · 14:32 EAT</span>
+      </div>
+
+      <div class="dash-body">
+        <!-- Sidebar -->
+        <div class="dash-sidebar">
+          <div class="sidebar-section-label">Main</div>
+          <div class="dash-nav-item active"><span class="nav-icon">🗺</span> Farm Map</div>
+          <div class="dash-nav-item"><span class="nav-icon">⚡</span> Alerts</div>
+          <div class="dash-nav-item"><span class="nav-icon">🌾</span> Crop Advisory</div>
+          <div class="dash-nav-item"><span class="nav-icon">🤖</span> AI Advisor</div>
+
+          <div class="sidebar-section-label">Analytics</div>
+          <div class="dash-nav-item"><span class="nav-icon">📊</span> Yield Forecast</div>
+          <div class="dash-nav-item"><span class="nav-icon">🛰</span> Satellite</div>
+          <div class="dash-nav-item"><span class="nav-icon">🌡</span> Climate</div>
+          <div class="dash-nav-item"><span class="nav-icon">🐛</span> Pest Risk</div>
+
+          <div class="sidebar-section-label">Communications</div>
+          <div class="dash-nav-item"><span class="nav-icon">📱</span> SMS Alerts</div>
+          <div class="dash-nav-item"><span class="nav-icon">👥</span> Farmers</div>
+          <div class="dash-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+        </div>
+
+        <!-- Map -->
+        <div class="dash-map">
+          <!-- Kenya SVG (stylized, not geographic-exact) -->
+          <svg class="map-svg" viewBox="0 0 500 480" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="500" height="480" fill="#0b1f18"/>
+            <!-- Grid -->
+            <defs>
+              <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,191,165,0.05)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="500" height="480" fill="url(#grid)"/>
+
+            <!-- Kenya outline (simplified polygon) -->
+            <polygon class="kenya-outline" points="
+              200,60 230,50 270,55 310,45 340,60
+              360,80 370,110 365,140 380,165
+              375,200 360,220 345,250 330,270
+              310,290 300,310 280,330 260,340
+              240,345 220,335 200,320 185,300
+              170,280 175,255 165,230 155,210
+              145,190 150,165 140,140 150,115
+              165,95 185,75 200,60
+            "/>
+
+            <!-- Drought zone (north) -->
+            <ellipse class="drought-zone" cx="285" cy="100" rx="60" ry="40"/>
+
+            <!-- Flood zone (west) -->
+            <ellipse class="flood-zone" cx="175" cy="220" rx="35" ry="50"/>
+
+            <!-- Alert markers -->
+            <circle cx="285" cy="100" r="8" fill="#FFC107" opacity="0.9">
+              <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="175" cy="220" r="7" fill="#00BFA5" opacity="0.9">
+              <animate attributeName="r" values="7;12;7" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="240" cy="280" r="6" fill="#00E676" opacity="0.8">
+              <animate attributeName="r" values="6;10;6" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="320" cy="200" r="6" fill="#FF5252" opacity="0.9">
+              <animate attributeName="r" values="6;11;6" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- County labels -->
+            <text x="270" y="95" fill="rgba(255,193,7,0.9)" font-size="9" font-weight="700" font-family="Inter">MARSABIT</text>
+            <text x="155" y="218" fill="rgba(0,191,165,0.9)" font-size="9" font-weight="700" font-family="Inter">TURKANA</text>
+            <text x="225" y="285" fill="rgba(0,230,118,0.9)" font-size="9" font-family="Inter">NAIROBI</text>
+
+            <!-- NDVI color bands (stylized) -->
+            <rect x="10" y="10" width="8" height="40" fill="rgba(0,230,118,0.6)" rx="2"/>
+            <rect x="10" y="52" width="8" height="30" fill="rgba(102,187,106,0.5)" rx="2"/>
+            <rect x="10" y="84" width="8" height="25" fill="rgba(255,193,7,0.5)" rx="2"/>
+            <rect x="10" y="111" width="8" height="20" fill="rgba(255,82,82,0.5)" rx="2"/>
+            <text x="22" y="22" fill="rgba(255,255,255,0.5)" font-size="8">High NDVI</text>
+            <text x="22" y="128" fill="rgba(255,255,255,0.5)" font-size="8">Low NDVI</text>
+
+            <!-- Compass rose -->
+            <text x="460" y="24" fill="rgba(255,255,255,0.4)" font-size="11" text-anchor="middle">N</text>
+            <text x="460" y="38" fill="rgba(255,255,255,0.2)" font-size="8" text-anchor="middle">↑</text>
+          </svg>
+
+          <!-- Floating chips over map -->
+          <div class="map-overlay-cards">
+            <div class="map-chip" style="top:16%;left:52%;background:rgba(16,42,35,0.92);">
+              <div class="chip-dot" style="background:var(--highlight);"></div>
+              <span style="color:var(--highlight);font-weight:700;">Drought HIGH</span>
+            </div>
+            <div class="map-chip" style="top:46%;left:24%;">
+              <div class="chip-dot" style="background:var(--accent);"></div>
+              <span style="color:var(--accent);font-weight:700;">Flood Watch</span>
+            </div>
+            <div class="map-chip" style="top:68%;left:44%;">
+              <div class="chip-dot" style="background:var(--success);"></div>
+              <span style="color:var(--success);">Good moisture</span>
+            </div>
+          </div>
+
+          <!-- Layer pills -->
+          <div class="map-layers">
+            <div class="layer-pill active">🛰 Satellite</div>
+            <div class="layer-pill active">🌦 Weather</div>
+            <div class="layer-pill active">🌿 NDVI</div>
+            <div class="layer-pill">🌊 Flood Risk</div>
+            <div class="layer-pill">🌡 Soil Moisture</div>
+            <div class="layer-pill">🐛 Pest Risk</div>
+          </div>
+        </div>
+
+        <!-- Right AI panel -->
+        <div class="dash-right">
+          <div class="ai-insight-card">
+            <div class="ai-insight-header">
+              <div class="ai-dot"></div>
+              AI Insight
+            </div>
+            <div class="insight-text">
+              Marsabit maize farmers at <strong>grain-fill stage</strong> face critical drought stress over the next 14 days. Recommend early harvest advisory to 1,240 registered farmers.
+            </div>
+          </div>
+
+          <div class="risk-meter">
+            <div class="risk-title">CROP RISK INDEX — CURRENT</div>
+            <div class="risk-bar-row">
+              <div class="risk-crop">Maize</div>
+              <div class="risk-bar-track"><div class="risk-bar-fill" style="width:82%;background:var(--danger);"></div></div>
+              <div class="risk-pct" style="color:var(--danger);">82%</div>
+            </div>
+            <div class="risk-bar-row">
+              <div class="risk-crop">Beans</div>
+              <div class="risk-bar-track"><div class="risk-bar-fill" style="width:65%;background:var(--highlight);"></div></div>
+              <div class="risk-pct" style="color:var(--highlight);">65%</div>
+            </div>
+            <div class="risk-bar-row">
+              <div class="risk-crop">Sorghum</div>
+              <div class="risk-bar-track"><div class="risk-bar-fill" style="width:34%;background:var(--secondary);"></div></div>
+              <div class="risk-pct" style="color:var(--secondary);">34%</div>
+            </div>
+            <div class="risk-bar-row">
+              <div class="risk-crop">Millet</div>
+              <div class="risk-bar-track"><div class="risk-bar-fill" style="width:18%;background:var(--success);"></div></div>
+              <div class="risk-pct" style="color:var(--success);">18%</div>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-mini">
+              <div class="stat-mini-val text-green">2,847</div>
+              <div class="stat-mini-lbl">Alerts sent today</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-val" style="color:var(--highlight);">3</div>
+              <div class="stat-mini-lbl">Active high alerts</div>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-mini">
+              <div class="stat-mini-val text-teal">93%</div>
+              <div class="stat-mini-lbl">Delivery rate</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-val" style="color:var(--success);">4.2★</div>
+              <div class="stat-mini-lbl">Farmer rating</div>
+            </div>
+          </div>
+
+          <div class="chart-card" style="padding:14px;border-radius:10px;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">RAINFALL FORECAST (7-DAY)</div>
+            <svg class="sparkline" viewBox="0 0 200 44">
+              <polygon points="0,44 0,30 28,22 56,28 84,10 112,18 140,6 168,14 200,8 200,44" fill="rgba(0,191,165,0.12)"/>
+              <polyline points="0,30 28,22 56,28 84,10 112,18 140,6 168,14 200,8" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ─────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="section-eyebrow" style="display:inline-flex;">🧩 Platform Capabilities</div>
+      <h2 class="section-title">Every tool a farmer's ally needs</h2>
+      <p class="section-sub" style="margin:0 auto;">From raw satellite data to a WhatsApp message that arrives before the drought does.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feat-card large">
+        <div>
+          <div class="feat-icon fi-green">🌾</div>
+          <div class="feat-name">AI Crop Advisor</div>
+          <div class="feat-desc">Combines HUSIKA weather alerts, NDVI satellite data, soil moisture, and the farmer's crop profile to generate specific, crop-aware farm decisions — not generic weather warnings.</div>
+          <div class="feat-tag">Core Feature</div>
+        </div>
+        <div>
+          <div class="feat-mini-chart">
+            <div class="mini-chart-label">ADVICE DELIVERY LATENCY</div>
+            <svg viewBox="0 0 200 60" style="width:100%;height:60px;">
+              <polyline points="0,45 30,35 60,38 90,20 120,15 150,10 200,8"
+                stroke="var(--secondary)" stroke-width="2" fill="none"/>
+              <text x="160" y="6" fill="var(--secondary)" font-size="8" font-family="Inter" font-weight="700">8s avg</text>
+            </svg>
+          </div>
+          <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+            Serving <strong style="color:var(--text)">18M+</strong> farmers across 11 IGAD countries in 7 languages via WhatsApp, USSD, and SMS.
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-red">🦠</div>
+        <div class="feat-name">Disease Prediction</div>
+        <div class="feat-desc">Correlates rainfall, temperature, and humidity to predict outbreak risk for late blight, rust, maize streak, and 40+ crop diseases.</div>
+        <div class="feat-tag">AI-Powered</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-yellow">🐛</div>
+        <div class="feat-name">Pest Risk Forecast</div>
+        <div class="feat-desc">Fall armyworm, desert locust, and aphid pressure modelled from wind patterns, temperature corridors, and historical infestation data.</div>
+        <div class="feat-tag">Early Warning</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-teal">🛰</div>
+        <div class="feat-name">Satellite Monitoring</div>
+        <div class="feat-desc">Live NDVI, EVI, and soil moisture from Sentinel-2 and Landsat imagery. Detect crop stress 2–3 weeks before visible symptoms appear.</div>
+        <div class="feat-tag">Remote Sensing</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-teal">🌊</div>
+        <div class="feat-name">Flood Prediction</div>
+        <div class="feat-desc">River gauge integration, DEM-based inundation modelling, and HUSIKA flood alerts combined into field-level flood risk maps.</div>
+        <div class="feat-tag">72h Ahead</div>
+      </div>
+
+      <div class="feat-card large">
+        <div>
+          <div class="feat-icon fi-yellow">☀️</div>
+          <div class="feat-name">Drought Intelligence</div>
+          <div class="feat-desc">SPI and NDVI anomaly tracking, with county-level drought severity scores updated daily. Triggers parametric advisories when thresholds breach.</div>
+          <div class="feat-tag">IRI / ICPAC Data</div>
+        </div>
+        <div>
+          <div class="feat-mini-chart">
+            <div class="mini-chart-label">SPI TREND — MARSABIT</div>
+            <svg viewBox="0 0 200 60" style="width:100%;height:60px;">
+              <line x1="0" y1="30" x2="200" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4"/>
+              <polyline points="0,20 30,22 60,28 90,38 120,45 150,50 200,54"
+                stroke="var(--highlight)" stroke-width="2" fill="none"/>
+              <text x="5" y="12" fill="rgba(255,255,255,0.4)" font-size="7" font-family="Inter">Normal</text>
+              <text x="130" y="58" fill="var(--danger)" font-size="7" font-family="Inter" font-weight="700">Severe Drought</text>
+            </svg>
+          </div>
+          <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+            Linked to HUSIKA DRESS-EA indicators and WMO drought classification standards.
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-green">📈</div>
+        <div class="feat-name">Yield Forecasting</div>
+        <div class="feat-desc">Seasonal yield prediction per crop and county, calibrated against FEWS NET and WFP market data.</div>
+        <div class="feat-tag">ML Model</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-purple">💬</div>
+        <div class="feat-name">SMS & WhatsApp Alerts</div>
+        <div class="feat-desc">Advice in Swahili, Somali, Amharic, Oromo, and Arabic. Delivered in under 8 seconds. No smartphone required.</div>
+        <div class="feat-tag">Last-Mile</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-blue">🏛</div>
+        <div class="feat-name">Government Advisory</div>
+        <div class="feat-desc">County-level briefings for DRM officers, NGO field coordinators, and ministry agriculture departments.</div>
+        <div class="feat-tag">Institutional</div>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon fi-teal">💧</div>
+        <div class="feat-name">Irrigation Optimizer</div>
+        <div class="feat-desc">Evapotranspiration calculations and soil-water balance modelling to prescribe optimal irrigation schedules per field.</div>
+        <div class="feat-tag">Water Smart</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── AI CHAT ───────────────────────────────────── -->
+<section id="ai-chat">
+  <div class="container">
+    <div class="chat-layout">
+      <div>
+        <div class="section-eyebrow">🤖 AI Farm Advisor</div>
+        <h2 class="section-title">Ask anything.<br>Get farm-ready answers.</h2>
+        <p class="section-sub">The AI Advisor understands crop growth stages, local hazards, soil conditions, and market context — and answers in the farmer's language.</p>
+
+        <div class="chat-context-list">
+          <div class="context-item">
+            <div class="context-num">1</div>
+            <div>
+              <div class="context-title">Farmer registers crop & location</div>
+              <div class="context-desc">One-time setup via WhatsApp, USSD, or the app. Name, crop type, county, planting date.</div>
+            </div>
+          </div>
+          <div class="context-item">
+            <div class="context-num">2</div>
+            <div>
+              <div class="context-title">HUSIKA alert fires</div>
+              <div class="context-desc">A drought or flood warning triggers the AgroSense pipeline automatically.</div>
+            </div>
+          </div>
+          <div class="context-item">
+            <div class="context-num">3</div>
+            <div>
+              <div class="context-title">AI generates personalized advice</div>
+              <div class="context-desc">RAG retrieves agronomic guidance. GPT-4o generates 3 crop-specific actions in 8 seconds.</div>
+            </div>
+          </div>
+          <div class="context-item">
+            <div class="context-num">4</div>
+            <div>
+              <div class="context-title">Farmer receives it on their phone</div>
+              <div class="context-desc">WhatsApp for smartphones. USSD or SMS for feature phones. No internet needed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat window -->
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-avatar">🌱</div>
+          <div class="chat-header-info">
+            <div class="chat-header-name">AgroSense AI Advisor</div>
+            <div class="chat-header-status">● Active · Swahili mode · Marsabit</div>
+          </div>
+          <span class="tag-pill pill-green" style="font-size:11px;">93% Confidence</span>
+        </div>
+
+        <div class="chat-messages">
+
+          <!-- Farmer message -->
+          <div class="msg msg-farmer">
+            <div class="msg-label">Amina (Farmer · Marsabit)</div>
+            <div class="msg-bubble">Should I plant maize this week? My field in Laisamis is ready.</div>
+          </div>
+
+          <!-- AI thinking -->
+          <div class="msg msg-ai">
+            <div class="msg-label">AgroSense AI</div>
+            <div class="msg-bubble">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Analysing data sources...</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+                <span class="tag-pill pill-teal" style="font-size:11px;">🌦 HUSIKA Forecast</span>
+                <span class="tag-pill pill-green" style="font-size:11px;">🛰 NDVI · Laisamis</span>
+                <span class="tag-pill pill-yellow" style="font-size:11px;">💧 Soil Moisture</span>
+                <span class="tag-pill" style="font-size:11px;background:rgba(171,71,188,0.12);color:#ce93d8;border:1px solid rgba(171,71,188,0.2);">📚 CIMMYT Guide</span>
+              </div>
+              <div style="color:var(--text);">
+                ⚠️ <strong>I recommend waiting 5–7 days before planting.</strong><br><br>
+                HUSIKA forecasts <strong>42mm of heavy rainfall</strong> over Marsabit between June 28–July 3. Planting maize in waterlogged soil at this stage risks seed rot and poor germination.<br><br>
+                After July 4, conditions are optimal: soil moisture will be at 68%, temperature 24°C, and no further rain forecast for 10 days — ideal germination window.
+              </div>
+              <div class="ai-metrics">
+                <div class="ai-metric-pill">
+                  <div class="m-label">CONFIDENCE</div>
+                  <div class="m-val text-green">93%</div>
+                </div>
+                <div class="ai-metric-pill">
+                  <div class="m-label">RISK IF PLANT NOW</div>
+                  <div class="m-val text-red">HIGH</div>
+                </div>
+                <div class="ai-metric-pill">
+                  <div class="m-label">RECOMMENDED VARIETY</div>
+                  <div class="m-val text-teal">H614D DT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Farmer follow-up -->
+          <div class="msg msg-farmer">
+            <div class="msg-bubble">What about pest risk if I wait?</div>
+          </div>
+
+          <!-- Typing -->
+          <div class="msg msg-ai">
+            <div class="msg-bubble">
+              <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="chat-input-bar">
+          <input class="chat-input" placeholder="Ask about planting, pests, irrigation, market prices..." type="text">
+          <button class="chat-send">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── JOURNEY ───────────────────────────────────── -->
+<section id="journey">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div class="section-eyebrow" style="display:inline-flex;">⚡ The Complete Chain</div>
+      <h2 class="section-title">From satellite to harvest</h2>
+      <p class="section-sub" style="margin:0 auto 0;">AgroSense AI completes the last mile HUSIKA was missing.</p>
+    </div>
+
+    <div class="journey-steps">
+      <div class="journey-step">
+        <div class="journey-icon-wrap">🛰</div>
+        <div class="journey-step-name">Satellite & Climate Data</div>
+        <div class="journey-step-desc">ICPAC models, Sentinel-2 imagery, soil sensors</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon-wrap">📡</div>
+        <div class="journey-step-name">HUSIKA Alert</div>
+        <div class="journey-step-desc">Official early warning issued by ICPAC</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon-wrap">🤖</div>
+        <div class="journey-step-name">AI Analysis</div>
+        <div class="journey-step-desc">GPT-4o + RAG + farmer profile</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon-wrap">📋</div>
+        <div class="journey-step-name">Farm Decision</div>
+        <div class="journey-step-desc">3 specific, crop-aware actions</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon-wrap">📱</div>
+        <div class="journey-step-name">SMS / WhatsApp</div>
+        <div class="journey-step-desc">In local language, any phone</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon-wrap">🌾</div>
+        <div class="journey-step-name">Better Yield</div>
+        <div class="journey-step-desc">40% less crop loss. Real impact.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ANALYTICS ──────────────────────────────────── -->
+<section id="analytics">
+  <div class="container">
+    <div class="dash-header" style="margin-bottom:40px;">
+      <div>
+        <div class="section-eyebrow">📊 Analytics</div>
+        <h2 class="section-title">Data-driven<br>crop intelligence</h2>
+      </div>
+    </div>
+
+    <div class="analytics-grid">
+
+      <div class="chart-card">
+        <div class="chart-title">Monthly Yield Forecast vs Actual</div>
+        <div class="chart-sub">Maize yield index — Rift Valley, 2024–25</div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--secondary)"></div>Forecast</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Actual</div>
+        </div>
+        <div class="area-chart-wrap">
+          <svg viewBox="0 0 400 100" preserveAspectRatio="none" style="width:100%;height:100%;">
+            <!-- Forecast area -->
+            <polygon points="0,60 50,45 100,50 150,30 200,35 250,25 300,30 350,20 400,25 400,100 0,100"
+              fill="rgba(102,187,106,0.15)"/>
+            <polyline points="0,60 50,45 100,50 150,30 200,35 250,25 300,30 350,20 400,25"
+              stroke="var(--secondary)" stroke-width="2" fill="none"/>
+            <!-- Actual area -->
+            <polygon points="0,65 50,50 100,55 150,38 200,42 250,32 300,36 350,26 400,30 400,100 0,100"
+              fill="rgba(0,191,165,0.08)"/>
+            <polyline points="0,65 50,50 100,55 150,38 200,42 250,32 300,36 350,26 400,30"
+              stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+          </svg>
+        </div>
+        <div class="x-labels">
+          <span class="x-lbl">Jul</span><span class="x-lbl">Aug</span>
+          <span class="x-lbl">Sep</span><span class="x-lbl">Oct</span>
+          <span class="x-lbl">Nov</span><span class="x-lbl">Dec</span>
+          <span class="x-lbl">Jan</span><span class="x-lbl">Feb</span>
+          <span class="x-lbl">Mar</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Disease Probability by County</div>
+        <div class="chart-sub">Late blight risk index — this week</div>
+        <div class="bar-chart" style="margin-top:16px;">
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:75%;background:linear-gradient(to top,var(--danger),rgba(255,82,82,0.4));"></div></div>
+            <div class="bar-lbl">Marsabit</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:52%;background:linear-gradient(to top,var(--highlight),rgba(255,193,7,0.4));"></div></div>
+            <div class="bar-lbl">Turkana</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:38%;background:linear-gradient(to top,var(--secondary),rgba(102,187,106,0.4));"></div></div>
+            <div class="bar-lbl">Nakuru</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:62%;background:linear-gradient(to top,var(--highlight),rgba(255,193,7,0.4));"></div></div>
+            <div class="bar-lbl">Wajir</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:22%;background:linear-gradient(to top,var(--success),rgba(0,230,118,0.4));"></div></div>
+            <div class="bar-lbl">Kisumu</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:45%;background:linear-gradient(to top,var(--secondary),rgba(102,187,106,0.4));"></div></div>
+            <div class="bar-lbl">Meru</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Rainfall Anomaly Index</div>
+        <div class="chart-sub">% deviation from long-term mean (ICPAC data)</div>
+        <div class="area-chart-wrap">
+          <svg viewBox="0 0 400 100" preserveAspectRatio="none" style="width:100%;height:100%;">
+            <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <polygon points="0,50 50,35 100,20 150,45 200,55 250,70 300,60 350,40 400,30 400,100 0,100"
+              fill="rgba(0,191,165,0.1)"/>
+            <polyline points="0,50 50,35 100,20 150,45 200,55 250,70 300,60 350,40 400,30"
+              stroke="var(--accent)" stroke-width="2" fill="none"/>
+            <text x="5" y="18" fill="var(--success)" font-size="7" font-family="Inter">+25%</text>
+            <text x="235" y="68" fill="var(--danger)" font-size="7" font-family="Inter">−15%</text>
+          </svg>
+        </div>
+        <div class="x-labels">
+          <span class="x-lbl">Jan</span><span class="x-lbl">Feb</span>
+          <span class="x-lbl">Mar</span><span class="x-lbl">Apr</span>
+          <span class="x-lbl">May</span><span class="x-lbl">Jun</span>
+          <span class="x-lbl">Jul</span><span class="x-lbl">Aug</span>
+          <span class="x-lbl">Sep</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Farmer Engagement</div>
+        <div class="chart-sub">Advice sent vs feedback received — 30-day trend</div>
+        <div class="bar-chart" style="margin-top:16px;">
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:40%;background:var(--primary);opacity:0.7;"></div></div>
+            <div class="bar-lbl">W1</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:55%;background:var(--primary);opacity:0.8;"></div></div>
+            <div class="bar-lbl">W2</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:72%;background:var(--primary);opacity:0.9;"></div></div>
+            <div class="bar-lbl">W3</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-fill-wrap"><div class="bar-item" style="height:88%;background:var(--secondary);"></div></div>
+            <div class="bar-lbl">W4</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── IMPACT ────────────────────────────────────── -->
+<section id="impact">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="section-eyebrow" style="display:inline-flex;">📈 Measured Impact</div>
+      <h2 class="section-title">Numbers that matter<br>in the field</h2>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-card ic-green">
+        <div class="impact-icon">🌾</div>
+        <div class="impact-num text-green" data-target="50000" data-suffix="K+">0</div>
+        <div class="impact-label">Farmers receiving personalized advice</div>
+      </div>
+      <div class="impact-card ic-teal">
+        <div class="impact-icon">🎯</div>
+        <div class="impact-num text-teal" data-target="93" data-suffix="%">0</div>
+        <div class="impact-label">AI forecast accuracy rate</div>
+      </div>
+      <div class="impact-card ic-yellow">
+        <div class="impact-icon">📉</div>
+        <div class="impact-num" style="color:var(--highlight);" data-target="40" data-suffix="%">0</div>
+        <div class="impact-label">Reduction in crop loss for enrolled farmers</div>
+      </div>
+      <div class="impact-card ic-red">
+        <div class="impact-icon">📱</div>
+        <div class="impact-num" style="color:var(--danger);" data-target="1" data-suffix="M+">0</div>
+        <div class="impact-label">Early warning alerts delivered</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px;">
+      <div class="impact-card" style="padding:20px 24px;text-align:left;display:flex;gap:16px;align-items:center;">
+        <div style="font-size:28px;">🌍</div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--secondary);">11</div>
+          <div style="font-size:14px;color:var(--muted);">Countries in IGAD region</div>
+        </div>
+      </div>
+      <div class="impact-card" style="padding:20px 24px;text-align:left;display:flex;gap:16px;align-items:center;">
+        <div style="font-size:28px;">💬</div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent);">7</div>
+          <div style="font-size:14px;color:var(--muted);">Languages supported</div>
+        </div>
+      </div>
+      <div class="impact-card" style="padding:20px 24px;text-align:left;display:flex;gap:16px;align-items:center;">
+        <div style="font-size:28px;">⚡</div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--highlight);">8s</div>
+          <div style="font-size:14px;color:var(--muted);">Average advice delivery time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ───────────────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="section-eyebrow" style="display:inline-flex;">💬 From the Field</div>
+      <h2 class="section-title">What they're saying</h2>
+    </div>
+
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">We've been using weather alerts for years but they never told us what to do. AgroSense AI sent me a WhatsApp message in Swahili telling me exactly when to harvest my maize before the drought hit. I saved my entire crop.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar aa-green">👩🏾‍🌾</div>
+          <div>
+            <div class="author-name">Amina Hassan</div>
+            <div class="author-role">Smallholder Farmer · Marsabit, Kenya</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">As an agricultural extension officer covering 3 sub-counties, I can now see exactly which farmers are at risk, which crops are most stressed, and prioritize my visits. AgroSense AI has multiplied my reach 10x.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar aa-teal">👨🏾‍💼</div>
+          <div>
+            <div class="author-name">Daniel Ochieng</div>
+            <div class="author-role">Agricultural Extension Officer · Nakuru County</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">The integration with HUSIKA's existing alert system is seamless. We can now target our relief pre-positioning based on AI risk scores — not anecdotal reports. This is what evidence-based humanitarian response looks like.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar aa-yellow">🌍</div>
+          <div>
+            <div class="author-name">Dr. Priya Nair</div>
+            <div class="author-role">Country Director · WFP East Africa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BAND ─────────────────────────────────── -->
+<section id="cta-band">
+  <div class="container">
+    <div class="section-eyebrow" style="display:inline-flex;margin-bottom:24px;">🚀 Built for HUSIKA Hackathon</div>
+    <h2>Ready to complete the<br><span style="background:linear-gradient(135deg,var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">last mile?</span></h2>
+    <p>AgroSense AI is open for ICPAC partners, NGOs, county governments, and research institutions. Integrate in days, not months.</p>
+    <div class="cta-buttons">
+      <a href="#ai-chat" class="btn btn-primary btn-lg">⚡ Try the Live Demo</a>
+      <a href="#dashboard" class="btn btn-outline-accent btn-lg">Explore Dashboard</a>
+      <a href="#" class="btn btn-ghost btn-lg">Read the Docs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="display:inline-flex;">
+        <div class="nav-logo-icon">🌱</div>
+        AgroSense AI
+      </div>
+      <p>Turning HUSIKA's early warning data into precise farm decisions for 18 million smallholders across East Africa.</p>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <div class="footer-badge">ICPAC Partner</div>
+        <div class="footer-badge">HUSIKA Extension</div>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">AI Advisor</a></li>
+        <li><a href="#">Satellite Maps</a></li>
+        <li><a href="#">SMS Alerts</a></li>
+        <li><a href="#">Analytics</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Developers</h4>
+      <ul>
+        <li><a href="#">API Docs</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">Webhook Guide</a></li>
+        <li><a href="#">System Spec</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Partners</h4>
+      <ul>
+        <li><a href="#">ICPAC / IGAD</a></li>
+        <li><a href="#">HUSIKA MIMS</a></li>
+        <li><a href="#">Africa's Talking</a></li>
+        <li><a href="#">CIMMYT</a></li>
+        <li><a href="#">FAO</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Hackathon</h4>
+      <ul>
+        <li><a href="#">About the Build</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Pitch Deck</a></li>
+        <li><a href="#">Live Demo</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2025 AgroSense AI · Built on HUSIKA · Powered by ICPAC data · IGAD Region</div>
+    <div class="footer-badges">
+      <div class="footer-badge">🔒 Secure</div>
+      <div class="footer-badge">🌐 6 Languages</div>
+      <div class="footer-badge">📡 HUSIKA Native</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Count-up animation ─────────────────────────────────────────
+function animateCountUp(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const start = performance.now();
+
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(target * ease);
+    el.textContent = current.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = 'true';
+      animateCountUp(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
+
+// ── Layer pill toggle ─────────────────────────────────────────
+document.querySelectorAll('.layer-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    pill.classList.toggle('active');
+  });
+});
+
+// ── Dashboard nav items ────────────────────────────────────────
+document.querySelectorAll('.dash-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.closest('.dash-sidebar').querySelectorAll('.dash-nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// ── Typing effect for AI chat ──────────────────────────────────
+// Simulate typing animation re-trigger on scroll
+let chatAnimated = false;
+const chatObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !chatAnimated) {
+      chatAnimated = true;
+      // Could add further typing simulation here
+    }
+  });
+}, { threshold: 0.3 });
+
+const chatSection = document.querySelector('#ai-chat');
+if (chatSection) chatObserver.observe(chatSection);
+
+// ── Smooth feature card hover glow ─────────────────────────────
+document.querySelectorAll('.feat-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(0,191,165,0.06), var(--card) 60%)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.background = '';
+  });
+});
+
+// ── Parallax hero on mouse ─────────────────────────────────────
+document.addEventListener('mousemove', (e) => {
+  const radar = document.querySelector('.radar-container');
+  if (!radar) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 12;
+  const y = (e.clientY / window.innerHeight - 0.5) * 8;
+  radar.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>
